@@ -1,0 +1,674 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+    \usepackage[russian]{babel}
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{pymystem3} \PY{k}{import} \PY{n}{Mystem}
+        \PY{k+kn}{import} \PY{n+nn}{xml}\PY{n+nn}{.}\PY{n+nn}{etree}\PY{n+nn}{.}\PY{n+nn}{ElementTree} \PY{k}{as} \PY{n+nn}{etree}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} морфологический анализатор}
+        \PY{n}{morph} \PY{o}{=} \PY{n}{Mystem}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} словарь словоформ OpenCorpora}
+        \PY{n}{file} \PY{o}{=} \PY{n}{etree}\PY{o}{.}\PY{n}{parse}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dict.opcorpora.xml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{getroot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} список всех лемм, включая словоформы и их характеристики}
+        \PY{n}{lemmata} \PY{o}{=} \PY{n}{file}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} инициализация словаря лемм с частью речи без дополнительной информации}
+        \PY{n}{dictionary} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} извлечение лемм из словаря OpenCorpora во внутренний словарь}
+        \PY{k}{for} \PY{n}{lemma} \PY{o+ow}{in} \PY{n}{lemmata}\PY{p}{:}
+            \PY{n}{dictionary}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{p}{(}\PY{n}{lemma}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{attrib}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{lemma}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{attrib}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} конвертация множества в словарь}
+        \PY{n}{dictionary} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} считывание текстов}
+         \PY{n}{text1} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/prestuplenie\PYZhy{}i\PYZhy{}nakazanie.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text2} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/anna\PYZhy{}karenina.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text3} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/mumu.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text4} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/gore\PYZhy{}ot\PYZhy{}uma.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text5} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/myortvye\PYZhy{}dushi.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text6} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/otcy\PYZhy{}i\PYZhy{}deti.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text7} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/bratya\PYZhy{}karamazovy.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{text8} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{texts/vishnevyi\PYZhy{}sad.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} объединение текстов в одну коллекцию}
+         \PY{n}{text} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{text1}\PY{p}{,} \PY{n}{text2}\PY{p}{,} \PY{n}{text3}\PY{p}{,} \PY{n}{text4}\PY{p}{,} \PY{n}{text5}\PY{p}{,} \PY{n}{text6}\PY{p}{,} \PY{n}{text7}\PY{p}{,} \PY{n}{text8}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} извлечение лемм из коллекции}
+         \PY{n}{lemmas} \PY{o}{=} \PY{n}{morph}\PY{o}{.}\PY{n}{analyze}\PY{p}{(}\PY{n}{text}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} удаление из списка лемм \PYZdq{}мусора\PYZdq{}, не имеющего характеристик:}
+         \PY{c+c1}{\PYZsh{} переносов строк, знаков препинания, иностранных слов и др.}
+         \PY{n}{lemmas} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{l}\PY{p}{:} \PY{n}{l}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{analysis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n+nb}{len}\PY{p}{(}\PY{n}{l}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{analysis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{lemmas}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} оставить только лемму без дополнительных характеристик}
+         \PY{n}{lemmas} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{l}\PY{p}{:} \PY{n}{l}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{analysis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{lemmas}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} инициализация словаря лемм, которые встречаются в коллекции, с их частотами}
+         \PY{n}{freq\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{dictionary}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} вычисление частот лемм, которые встречаются в коллекции}
+         \PY{k}{for} \PY{n}{lemma} \PY{o+ow}{in} \PY{n}{lemmas}\PY{p}{:}
+             \PY{k}{if} \PY{n}{lemma} \PY{o+ow}{in} \PY{n}{freq\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{freq\PYZus{}dict}\PY{p}{[}\PY{n}{lemma}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Общее число лемм в коллекции текстов:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{lemmas}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Число уникальных лемм в коллекции текстов:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{freq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Общее число лемм в коллекции текстов: 929404
+Число уникальных лемм в коллекции текстов: 21870
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} число словарных лемм, отсутствующих в коллекции текстов}
+         \PY{n}{amount} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{freq\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Общее количество лемм в словаре OpenCorpora:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Количество лемм словаря, отсутствующих в коллекции текстов:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{amount}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Процент отсутствующих лемм словаря в коллекции текстов: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{amount} \PY{o}{*} \PY{l+m+mi}{100} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Общее количество лемм в словаре OpenCorpora: 378282
+Количество лемм словаря, отсутствующих в коллекции текстов: 356412
+Процент отсутствующих лемм словаря в коллекции текстов: 94.22\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} множество всех частей речи словаря лемм}
+         \PY{n}{pos\PYZus{}set} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{dictionary}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} инициализация частотного словаря частей речи}
+         \PY{n}{pos\PYZus{}freq} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{pos\PYZus{}set}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} вычисление частот частей речи лемм, которые не встречаются в коллекции}
+         \PY{k}{for} \PY{n}{word}\PY{p}{,} \PY{n}{freq} \PY{o+ow}{in} \PY{n}{freq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{freq} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{pos\PYZus{}freq}\PY{p}{[}\PY{n}{dictionary}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Часть речи}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Частота}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{pos\PYZus{}freq}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{pos\PYZus{}freq}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} вывод наиболее частотной части речи, отсутствующей в коллекции}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Наиболее частотная часть речи, отсутствующая в коллекции:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{pos\PYZus{}freq}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} вывод примеров лемм, отсутствующих в коллекции для каждой части речи}
+         \PY{k}{for} \PY{n}{pos}\PY{p}{,} \PY{n}{freq} \PY{o+ow}{in} \PY{n}{pos\PYZus{}freq}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Часть речи:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pos}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Примеры отсутствующих лемм:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                 \PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{n}{pos} \PY{o+ow}{and} \PY{n}{freq\PYZus{}dict}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{dictionary}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Наиболее частотная часть речи, отсутствующая в коллекции: NOUN
+
+Часть речи: VERB
+Примеры отсутствующих лемм: перекувырнул, задариваю, надмачиваю, локализовал, прогневил,
+откроил, отформовываюсь, подвинтил, предложил, намереваюсь
+
+Часть речи: ADJS
+Примеры отсутствующих лемм: нефтесобирающе, вольнопрактикующ, всеподданнейше, хлопчатобумажен,
+неприсягающе, грудаст, рыборазводяще, сухарен, старопечатен, хулителен
+
+Часть речи: ADJF
+Примеры отсутствующих лемм: акмеистский, светлоглазый, паучий, энергоаппаратный, внутрирайонный,
+некапризный, гвоздзиовский, препроводительный, многоколоночный, трудноватый
+
+Часть речи: NUMR
+Примеры отсутствующих лемм: многовато, восьмеро, девятеро, осемьдесят, сколечко, полста,
+шестьсот, нисколечко, эстолько, семеро
+
+Часть речи: GRND
+Примеры отсутствующих лемм: свиристя, призираясь, слопав, двинувшись, восхотев, засигналив,
+истачивая, зарясь, прижёгши, выведывая
+
+Часть речи: INFN
+Примеры отсутствующих лемм: починяться, прикусываться, королевствовать, кровохаркать, запятить,
+обчёсывать, контрапунктовать, вметать, опутываться, пришить
+
+Часть речи: PREP
+Примеры отсутствующих лемм: вкруг, насчёт, плюс, выключая, обок, середь, касаемо, невзирая,
+навроде, промежду
+
+Часть речи: PRCL
+Примеры отсутствующих лемм: фиг, ла, ужель, всё-таки, ещё, дель, всё, эль, максимум, эва
+
+Часть речи: PRTF
+Примеры отсутствующих лемм: перекопируемый, истачивавшийся, кончившийся, шелюгующий, смешавший, вкраивающийся, произрастивший, палящийся, обтираемый, промачивавшийся
+
+Часть речи: ADVB
+Примеры отсутствующих лемм: гуситски, зимой, трудновато, суннитски, алеутски, напряжённо,
+плотоядно, дотуда, надсадно, злостно
+
+Часть речи: PRED
+Примеры отсутствующих лемм: амба, темным-темно, полгоря, неповадно, морозно, лафа, невместно,
+нехуй, квит, невдомёк
+
+Часть речи: CONJ
+Примеры отсутствующих лемм: понимаете, в-восьмых, точнее, дак, случается, имхо, наконец-то,
+соответственно, всеконечно, в-пятых
+
+Часть речи: COMP
+Примеры отсутствующих лемм: разноголосее, гильотиннее, квадратнее, краснорыбнее, булочнее,
+акациевее, дубильнее, ассортиментнее, родановее, салоннее
+
+Часть речи: NPRO
+Примеры отсутствующих лемм: любая
+
+Часть речи: NOUN
+Примеры отсутствующих лемм: суперген, деминские, гуэмал, ульяновскагроснаб, дурново, островина,
+анабасис, модуль, каздорстрой, пеетеровна
+
+Часть речи: INTJ
+Примеры отсутствующих лемм: хе, м-м, чик-чирик, оп, слушайте, гы, кувырк, угу, атас, ттт
+
+Часть речи: PRTS
+Примеры отсутствующих лемм: расчёсываем, доплюнут, подцвечиваем, освидетельствован, взмачиваем,
+убыточим, отвезён, перерегистрирован, пересекаем, выхолощен
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} вывод примеров лемм различной длины, отсутствующих в коллекции}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Примеры отсутствующих лемм длины }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                 \PY{n+nb}{filter}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{==} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{freq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Примеры отсутствующих лемм длины 1: ц, ы
+Примеры отсутствующих лемм длины 2: ям, хе, оп, ла, тб, кб, гы, рк, кв, ир
+Примеры отсутствующих лемм длины 3: 6-й, цдл, акр, аба, чиф, 2-й, уза, крк, фиг, эре
+Примеры отсутствующих лемм длины 4: опор, внии, вжав, фото, яния, адиб, флэш, хота, фуко, меря
+Примеры отсутствующих лемм длины 5: гарий, ежова, диэдр, солощ, измит, зимой, илона, зайка,
+выжал, антуш
+Примеры отсутствующих лемм длины 6: гуэмал, модуль, слопав, митины, паучий, даглар, заноза,
+зарясь, шамада, фаника
+Примеры отсутствующих лемм длины 7: дурново, аджиева, грудаст, бычкова, высотка, сухарен,
+морюшко, откроил, отвезён, ровенка
+Примеры отсутствующих лемм длины 8: суперген, свиристя, анабасис, доплюнут, восхотев, запятить,
+булочнее, гуситски, прижёгши, убыточим
+Примеры отсутствующих лемм длины 9: деминские, островина, задариваю, жеребцовы, смешавший,
+истачивая, палящийся, прогневил, малгожата, акпорисов
+Примеры отсутствующих лемм длины 10: пеетеровна, призираясь, починяться, двинувшись, головунины,
+надмачиваю, шелюгующий, обчёсывать, квадратнее, засигналив
+Примеры отсутствующих лемм длины 11: расчёсываем, каздорстрой, акмеистский, кончившийся,
+гильотиннее, некапризный, локализовал, петерисовна, трудноватый, нисходивший
+Примеры отсутствующих лемм длины 12: перекувырнул, светлоглазый, разноголосее, кровохаркать,
+краснорыбнее, герпетология, неприсягающе, рисовавшийся, подцвечиваем, включающийся
+Примеры отсутствующих лемм длины 13: прикусываться, гвоздзиовский, вкраивающийся, нахалтуривший,
+рыборазводяще, багрянородный, гюльдарановна, пристальность, прелиминарный, зачаровываясь
+Примеры отсутствующих лемм длины 14: нефтесобирающе, перекопируемый, истачивавшийся,
+внутрирайонный, хлебокопнитель, всеподданнейше, произрастивший, декламирование, отформовываюсь,
+выгрязнившийся
+Примеры отсутствующих лемм длины 15: королевствовать, хлопчатобумажен, многоколоночный,
+промачивавшийся, неперечисленный, выстуживавшийся, раскосматившись, общёлкивавшийся,
+переупаковывать, омолаживающийся
+Примеры отсутствующих лемм длины 16: вольнопрактикующ, энергоаппаратный, камнерезательный,
+контрапунктовать, иловляремтехпред, москоммунбытпром, невразумительный, перецеживавшийся,
+намариновываться, присоединяющийся
+Примеры отсутствующих лемм длины 17: ульяновскагроснаб, препроводительный, узкодогматический,
+освидетельствован, перерегистрирован, препровождающийся, проскандировавший, транспонировавший,
+волгоградводстрой, разворовывавшийся
+Примеры отсутствующих лемм длины 18: мультикомпьютерный, тепловодоснабжение, приморкоммунэнерго,
+мотор-генераторный, рекристаллизировал, расшифровывающийся, революционизировав,
+звуконепроницаемый, секуляризироваться, межконтинентальный
+Примеры отсутствующих лемм длины 19: меднорафинировочный, неконституционность,
+паралингвистический, милливольтамперметр, слабодифтонгический, калининградагропром,
+островоспалительный, здравоохранительный, телерадиопередающий, солидолонагнетатель
+Примеры отсутствующих лемм длины 20: труднозапечатываемый, гальванопластический,
+владимирагропищепром, ярославрезинотехника, перерегистрироваться, паводкоаккумулирующе,
+новосибгражданпроект, гематоэнцефалический, владимирсельхозхимия, импрессионистический
+Примеры отсутствующих лемм длины 21: авиаметеорологический, переквалифицировавший,
+антикапиталистический, научно-познавательный, акустокибернетический, неэквипотенциальность,
+стереотопографический, научно-консультативен, малоквалифицированнее, институционализировал
+Примеры отсутствующих лемм длины 22: инженерно-строительный, возвратно-поступателен,
+ивановооблгражданстрой, зернокукурузоуборочный, велижагропромтехмонтаж, приморскагропромремонт,
+проинвентаризировавший, псевдоинтеллектуальный, учетно-калькуляционный, совместительствовавший
+Примеры отсутствующих лемм длины 23: нечерноземсельхозпроект, хабаровсклеспроектстрой,
+золотополиметаллический, радиотермолюминесценция, вентиляционно-приточный,
+никифоровкаагропромснаб, конституционно-правовой, белгородоблгражданстрой,
+представительствовавший, уголовно-процессуальный
+Примеры отсутствующих лемм длины 24: белосельская-белозерская, электронно-колебательный,
+архитектурно-декоративен, волчихинскагропромэнерго, юговостокатомэнергострой,
+противоправительственный, интернационализироваться, функционально-физический,
+интернационализировавший, экологотоксикологический
+Примеры отсутствующих лемм длины 25: алтайгражданреконструкция, краснодартрубопроводстрой,
+кировсельэлектросетьстрой, кубаньстройгазпереработка, северо-осетиннефтепродукт,
+материально-ответственнее, росколхозстройобъединение, балластораспределительный,
+электронно-вычислительный, стоимостно-функциональный
+Примеры отсутствующих лемм длины 26: амуроблавтотехобслуживание, новосибирсккиновидеосервис,
+кузбассшахтостройиндустрия, востокнефтегазсантехмонтаж, нумеровально-впечатывающий,
+мосгорэлектроприбороптторг, зауралсельэлектросетьстрой, рентгеноспектроскопический,
+медно-марганцево-никелевый, предметно-производственный
+Примеры отсутствующих лемм длины 27: производственно-технический, операционно-технологический,
+александровгайагропромхимия, архитектурно-конструктивный, христианско-демократический,
+александровогайагропромснаб, липецкавтотрансобслуживание, калининградагропромлегтранс,
+саратовгражданреконструкция, саратовоблтрансобслуживание
+Примеры отсутствующих лемм длины 28: физкультурно-оздоровительный, последовательно-параллельный,
+нижневартовскэнергосетьстрой, липецкоблтелерадиобыттехника, непосредственно-составляющий,
+кандалакшаремтехагропромснаб, самаранефтепродуктавтоматика, исправительно-воспитательный,
+материально-производственный, инвестиционно-учредительский
+Примеры отсутствующих лемм длины 29: генерационно-рекомбинационный,
+старопохвистневоагропромтранс, литературно-библиографический, магаданоблавтотехобслуживание,
+дополнительно-программируемый, лесопильнодеревообрабатывающе, красноленинскнефтегазгеология,
+верхнетоемскремтехпредхимснаб, виноградовскремтехпредхимснаб, воронежнефтепродуктавтоматика
+Примеры отсутствующих лемм длины 30: новгородоблавтотехобслуживание,
+ершовагропроммехмонтажкомплект, профессорско-преподавательский, подготовительно-заключительный,
+окислительно-восстановительный, смоленскоблтелерадиобыттехника, экзаменационно-квалификационен,
+психолого-импрессионистический, конструкторско-технологический, административно-управленческий
+Примеры отсутствующих лемм длины 31: архангельскагропромпусконаладка,
+волгограднефтепродуктавтоматика, правительственно-индустриальный,
+белгородоблгражданреконструкция, экзаменационно-квалификационный,
+земледельческо-животноводческий, административно-территориальный,
+компенсаторно-приспособительный, магнитотермокондуктометрический,
+спецнефтеэнергомонтажавтоматика
+Примеры отсутствующих лемм длины 32: выправочно-подбивочно-отделочный,
+консультативно-исследовательский, средневолжсксельэлектросетьстрой,
+диодно-резисторно-конденсаторный, пропорционально-дифференциальный,
+аркадакагропроммехмонтажкомплект, верхневолжсксельэлектросетьстрой,
+конструкционно-теплоизоляционный, государственно-монополистический
+Примеры отсутствующих лемм длины 33: эксплуататорско-монополистический,
+круглильно-кашировально-оклеечный
+Примеры отсутствующих лемм длины 34: экспериментально-исследовательский
+Примеры отсутствующих лемм длины 35: 
+Примеры отсутствующих лемм длины 36: нечерноземагроспецпром-монтажналадка
+Примеры отсутствующих лемм длины 37: 
+Примеры отсутствующих лемм длины 38: 
+Примеры отсутствующих лемм длины 39: 
+Примеры отсутствующих лемм длины 40: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} сортировка частотного списка лемм}
+         \PY{n}{freq\PYZus{}dict} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{freq\PYZus{}dict}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{key} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{reverse} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} вывод 50 самых встречаемых лемм в коллекции}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Слово }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{freq\PYZus{}dict}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ встречается }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{freq\PYZus{}dict}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ раз}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Слово "и" встречается 43031 раз
+Слово "он" встречается 26219 раз
+Слово "не" встречается 21470 раз
+Слово "в" встречается 21169 раз
+Слово "что" встречается 18532 раз
+Слово "я" встречается 17639 раз
+Слово "быть" встречается 14918 раз
+Слово "на" встречается 12541 раз
+Слово "с" встречается 12165 раз
+Слово "она" встречается 11765 раз
+Слово "как" встречается 9032 раз
+Слово "то" встречается 8733 раз
+Слово "а" встречается 8016 раз
+Слово "это" встречается 7930 раз
+Слово "вы" встречается 7226 раз
+Слово "но" встречается 7153 раз
+Слово "ты" встречается 6111 раз
+Слово "к" встречается 5858 раз
+Слово "этот" встречается 5711 раз
+Слово "же" встречается 5514 раз
+Слово "так" встречается 5385 раз
+Слово "весь" встречается 5374 раз
+Слово "сказать" встречается 5116 раз
+Слово "свой" встречается 4827 раз
+Слово "они" встречается 4486 раз
+Слово "бы" встречается 4239 раз
+Слово "который" встречается 4151 раз
+Слово "мочь" встречается 4145 раз
+Слово "да" встречается 4113 раз
+Слово "у" встречается 4080 раз
+Слово "за" встречается 3904 раз
+Слово "себя" встречается 3669 раз
+Слово "его" встречается 3657 раз
+Слово "только" встречается 3525 раз
+Слово "говорить" встречается 3516 раз
+Слово "один" встречается 3426 раз
+Слово "знать" встречается 3421 раз
+Слово "по" встречается 3373 раз
+Слово "тот" встречается 3291 раз
+Слово "о" встречается 3188 раз
+Слово "от" встречается 2905 раз
+Слово "человек" встречается 2850 раз
+Слово "из" встречается 2797 раз
+Слово "сам" встречается 2746 раз
+Слово "вот" встречается 2720 раз
+Слово "теперь" встречается 2693 раз
+Слово "уже" встречается 2654 раз
+Слово "такой" встречается 2580 раз
+Слово "мы" встречается 2411 раз
+Слово "даже" встречается 2366 раз
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
